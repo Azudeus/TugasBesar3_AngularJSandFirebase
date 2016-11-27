@@ -300,7 +300,7 @@ public class MarketPlace {
         driver = "com.mysql.jdbc.Driver";
         userName = "root";
         password = "";
-         if(CheckLike(productId,accountId) == 1){
+         if(CheckLike(productId,accountId) != 1){
              try {
             Class.forName(driver).newInstance();
             conn = DriverManager.getConnection(url+dbName,userName,password);

@@ -22,7 +22,7 @@
     int accountId = Integer.parseInt(request.getParameter("account_id"));
     int productId = Integer.parseInt(request.getParameter("product_id"));
     Product currentProduct = null;
-    Account currentAccount = null;
+
     
     
         com.validator.Validator_Service service2 = new com.validator.Validator_Service();
@@ -45,7 +45,7 @@
 
 	// TODO process result here
 	currentProduct = port.searchProductWithProductId(productId);
-        currentAccount = port.getAccWithAccountId(accountId);
+     
 
     } catch (Exception ex) {
 	// TODO handle custom exceptions here
@@ -69,16 +69,16 @@
     </pre>
     <div class = 'font18'>
     Consignee<br>
-    <input name="consignee" type="text" required class = "width100" value = "<%out.print(currentAccount.getName());%>">
+    <input name="consignee" type="text" required class = "width100">
     <br><br>
     Full Address<br>
-    <input name="full_address" type="text" required class = "tworow width100" value = "<%out.println(currentAccount.getAddress());%>" >
+    <input name="full_address" type="text" required class = "tworow width100" >
     <br><br>
     Postal Code<br>
-    <input name="postal_code" type="text" required class = "width100" value = "<%out.println(currentAccount.getPostal());%>">
+    <input name="postal_code" type="text" required class = "width100" >
     <br><br>
     Phone Number<br>
-    <input name="phone_number" type="text" required class = "width100" value = "<%out.println(currentAccount.getNumber());%>">
+    <input name="phone_number" type="text" required class = "width100">
     <br><br>
     12 Digits Credit Card Number
     <input name="credit_number" type="text" required class = "width100">

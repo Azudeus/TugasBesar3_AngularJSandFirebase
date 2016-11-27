@@ -30,7 +30,6 @@
     <h1 id = "title"><span id="sale">Sale</span><span id="project">Project</span></h1>
 
     <h2 id = "hellouser">Hi, <%out.println(username); %> !</h2>
-    <h2 id = "hellouser"><font size = 1>Your access token <%out.println(token); %> </font></h2>
     
     <form method="post" action="connector.jsp" id="formLogout">
     <input type="hidden" name="title" value="logout">

@@ -18,7 +18,7 @@
     
         <%-- start web service invocation --%>
     <%
-    int account_id = 1;
+        int account_id = Integer.parseInt(((String)session.getAttribute("account_id")).trim());
         List<Purchases> PurchasesList = null;
 
      

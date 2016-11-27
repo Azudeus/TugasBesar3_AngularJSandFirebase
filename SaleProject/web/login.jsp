@@ -3,6 +3,7 @@
     Created on : Nov 13, 2016, 9:23:45 AM
     Author     : Personal
 --%>
+<link rel="stylesheet" type="text/css" href="style.css">
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -13,13 +14,18 @@
         </title>
     </head>
     <body>
-        <h1>Login Page</h1>
+        <h1 id="title"><span id="sale">Sale</span><span id="project">Project</span></span></h1>
+        <h3 id="subHeader"> Please Login </h3>
+        <hr>
         <form method="post" action="connector.jsp">
         <input type="hidden" name="title" value="login">
-        Email ID:<input type="text" name="email" /><br/>
-        Password:<input type="password" name="password" /><br/>
-        <input type="submit" value="login" />
+        Email OR Username <br>
+        <input type="text" name="email" id = "formField" /><br/><br/>
+        Password:<input type="password" name="password" id = "formField" /><br/>
+        <div id="submitAlign"><div class="right">
+        <input type="submit" value="login" class ="button" />
+        </div>
         </form>
-        <a href="register.jsp">Dont have an account? Register here</a>
+        <h2 id="account">Don't have an account yet? Register <a href="register.jsp" class="bluelink">here</a>
     </body>
 </html>

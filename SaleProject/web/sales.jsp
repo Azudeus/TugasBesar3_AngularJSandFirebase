@@ -19,7 +19,7 @@
     
         <%-- start web service invocation --%>
     <%
-    int account_id = 1;
+    int account_id = Integer.parseInt(((String)session.getAttribute("account_id")).trim());
     List<Purchases> PurchasesList = null;
 
      
@@ -36,12 +36,12 @@
         }
        
     try {
-        Account dummy; 
+    
         com.marketplace.MarketPlace_Service service = new com.marketplace.MarketPlace_Service();
         com.marketplace.MarketPlace port = service.getMarketPlacePort();
-        dummy = port.getAccWithAccountId(account_id);
+  
    
-	PurchasesList = port.getPurchaseByName(dummy.getUsername().trim());
+	PurchasesList = port.getPurchaseByName(username);
     } catch (Exception ex) {
 	// TODO handle custom exceptions here
     }

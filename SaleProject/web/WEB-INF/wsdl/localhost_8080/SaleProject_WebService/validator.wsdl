@@ -4,31 +4,31 @@
 <xsd:import namespace="http://validator.com/" schemaLocation="http://localhost:8080/SaleProject_WebService/validator?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="hello">
-<part name="parameters" element="tns:hello"/>
-</message>
-<message name="helloResponse">
-<part name="parameters" element="tns:helloResponse"/>
-</message>
 <message name="authToken">
 <part name="parameters" element="tns:authToken"/>
 </message>
 <message name="authTokenResponse">
 <part name="parameters" element="tns:authTokenResponse"/>
 </message>
+<message name="hello">
+<part name="parameters" element="tns:hello"/>
+</message>
+<message name="helloResponse">
+<part name="parameters" element="tns:helloResponse"/>
+</message>
 <portType name="validator">
-<operation name="hello">
-<input wsam:Action="http://validator.com/validator/helloRequest" message="tns:hello"/>
-<output wsam:Action="http://validator.com/validator/helloResponse" message="tns:helloResponse"/>
-</operation>
 <operation name="authToken">
 <input wsam:Action="http://validator.com/validator/authTokenRequest" message="tns:authToken"/>
 <output wsam:Action="http://validator.com/validator/authTokenResponse" message="tns:authTokenResponse"/>
 </operation>
+<operation name="hello">
+<input wsam:Action="http://validator.com/validator/helloRequest" message="tns:hello"/>
+<output wsam:Action="http://validator.com/validator/helloResponse" message="tns:helloResponse"/>
+</operation>
 </portType>
 <binding name="validatorPortBinding" type="tns:validator">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="hello">
+<operation name="authToken">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -37,7 +37,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="authToken">
+<operation name="hello">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

@@ -4,23 +4,23 @@
 <xsd:import namespace="http://marketplace.com/" schemaLocation="http://localhost:8080/SaleProject_WebService/MarketPlace?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="SearchProductWithProductId">
-<part name="parameters" element="tns:SearchProductWithProductId"/>
-</message>
-<message name="SearchProductWithProductIdResponse">
-<part name="parameters" element="tns:SearchProductWithProductIdResponse"/>
-</message>
 <message name="SearchProductWithAccount">
 <part name="parameters" element="tns:SearchProductWithAccount"/>
 </message>
 <message name="SearchProductWithAccountResponse">
 <part name="parameters" element="tns:SearchProductWithAccountResponse"/>
 </message>
-<message name="GetPurchaseByName">
-<part name="parameters" element="tns:GetPurchaseByName"/>
+<message name="SearchProductWithProductName">
+<part name="parameters" element="tns:SearchProductWithProductName"/>
 </message>
-<message name="GetPurchaseByNameResponse">
-<part name="parameters" element="tns:GetPurchaseByNameResponse"/>
+<message name="SearchProductWithProductNameResponse">
+<part name="parameters" element="tns:SearchProductWithProductNameResponse"/>
+</message>
+<message name="SearchProductWithProductId">
+<part name="parameters" element="tns:SearchProductWithProductId"/>
+</message>
+<message name="SearchProductWithProductIdResponse">
+<part name="parameters" element="tns:SearchProductWithProductIdResponse"/>
 </message>
 <message name="GetAccWithAccountId">
 <part name="parameters" element="tns:GetAccWithAccountId"/>
@@ -28,11 +28,11 @@
 <message name="GetAccWithAccountIdResponse">
 <part name="parameters" element="tns:GetAccWithAccountIdResponse"/>
 </message>
-<message name="SearchProductWithProductName">
-<part name="parameters" element="tns:SearchProductWithProductName"/>
+<message name="GetPurchaseByName">
+<part name="parameters" element="tns:GetPurchaseByName"/>
 </message>
-<message name="SearchProductWithProductNameResponse">
-<part name="parameters" element="tns:SearchProductWithProductNameResponse"/>
+<message name="GetPurchaseByNameResponse">
+<part name="parameters" element="tns:GetPurchaseByNameResponse"/>
 </message>
 <message name="GetAllProduct">
 <part name="parameters" element="tns:GetAllProduct"/>
@@ -46,17 +46,17 @@
 <message name="CheckLikeResponse">
 <part name="parameters" element="tns:CheckLikeResponse"/>
 </message>
-<message name="DelLike">
-<part name="parameters" element="tns:DelLike"/>
-</message>
-<message name="DelLikeResponse">
-<part name="parameters" element="tns:DelLikeResponse"/>
-</message>
 <message name="AddLike">
 <part name="parameters" element="tns:AddLike"/>
 </message>
 <message name="AddLikeResponse">
 <part name="parameters" element="tns:AddLikeResponse"/>
+</message>
+<message name="DelLike">
+<part name="parameters" element="tns:DelLike"/>
+</message>
+<message name="DelLikeResponse">
+<part name="parameters" element="tns:DelLikeResponse"/>
 </message>
 <message name="AddPurchase">
 <part name="parameters" element="tns:AddPurchase"/>
@@ -70,12 +70,6 @@
 <message name="GetPurchaseResponse">
 <part name="parameters" element="tns:GetPurchaseResponse"/>
 </message>
-<message name="EditProduct">
-<part name="parameters" element="tns:EditProduct"/>
-</message>
-<message name="EditProductResponse">
-<part name="parameters" element="tns:EditProductResponse"/>
-</message>
 <message name="AddProduct">
 <part name="parameters" element="tns:AddProduct"/>
 </message>
@@ -88,26 +82,32 @@
 <message name="DelProductResponse">
 <part name="parameters" element="tns:DelProductResponse"/>
 </message>
+<message name="EditProduct">
+<part name="parameters" element="tns:EditProduct"/>
+</message>
+<message name="EditProductResponse">
+<part name="parameters" element="tns:EditProductResponse"/>
+</message>
 <portType name="MarketPlace">
-<operation name="SearchProductWithProductId">
-<input wsam:Action="http://marketplace.com/MarketPlace/SearchProductWithProductIdRequest" message="tns:SearchProductWithProductId"/>
-<output wsam:Action="http://marketplace.com/MarketPlace/SearchProductWithProductIdResponse" message="tns:SearchProductWithProductIdResponse"/>
-</operation>
 <operation name="SearchProductWithAccount">
 <input wsam:Action="http://marketplace.com/MarketPlace/SearchProductWithAccountRequest" message="tns:SearchProductWithAccount"/>
 <output wsam:Action="http://marketplace.com/MarketPlace/SearchProductWithAccountResponse" message="tns:SearchProductWithAccountResponse"/>
 </operation>
-<operation name="GetPurchaseByName">
-<input wsam:Action="http://marketplace.com/MarketPlace/GetPurchaseByNameRequest" message="tns:GetPurchaseByName"/>
-<output wsam:Action="http://marketplace.com/MarketPlace/GetPurchaseByNameResponse" message="tns:GetPurchaseByNameResponse"/>
+<operation name="SearchProductWithProductName">
+<input wsam:Action="http://marketplace.com/MarketPlace/SearchProductWithProductNameRequest" message="tns:SearchProductWithProductName"/>
+<output wsam:Action="http://marketplace.com/MarketPlace/SearchProductWithProductNameResponse" message="tns:SearchProductWithProductNameResponse"/>
+</operation>
+<operation name="SearchProductWithProductId">
+<input wsam:Action="http://marketplace.com/MarketPlace/SearchProductWithProductIdRequest" message="tns:SearchProductWithProductId"/>
+<output wsam:Action="http://marketplace.com/MarketPlace/SearchProductWithProductIdResponse" message="tns:SearchProductWithProductIdResponse"/>
 </operation>
 <operation name="GetAccWithAccountId">
 <input wsam:Action="http://marketplace.com/MarketPlace/GetAccWithAccountIdRequest" message="tns:GetAccWithAccountId"/>
 <output wsam:Action="http://marketplace.com/MarketPlace/GetAccWithAccountIdResponse" message="tns:GetAccWithAccountIdResponse"/>
 </operation>
-<operation name="SearchProductWithProductName">
-<input wsam:Action="http://marketplace.com/MarketPlace/SearchProductWithProductNameRequest" message="tns:SearchProductWithProductName"/>
-<output wsam:Action="http://marketplace.com/MarketPlace/SearchProductWithProductNameResponse" message="tns:SearchProductWithProductNameResponse"/>
+<operation name="GetPurchaseByName">
+<input wsam:Action="http://marketplace.com/MarketPlace/GetPurchaseByNameRequest" message="tns:GetPurchaseByName"/>
+<output wsam:Action="http://marketplace.com/MarketPlace/GetPurchaseByNameResponse" message="tns:GetPurchaseByNameResponse"/>
 </operation>
 <operation name="GetAllProduct">
 <input wsam:Action="http://marketplace.com/MarketPlace/GetAllProductRequest" message="tns:GetAllProduct"/>
@@ -117,13 +117,13 @@
 <input wsam:Action="http://marketplace.com/MarketPlace/CheckLikeRequest" message="tns:CheckLike"/>
 <output wsam:Action="http://marketplace.com/MarketPlace/CheckLikeResponse" message="tns:CheckLikeResponse"/>
 </operation>
-<operation name="DelLike">
-<input wsam:Action="http://marketplace.com/MarketPlace/DelLikeRequest" message="tns:DelLike"/>
-<output wsam:Action="http://marketplace.com/MarketPlace/DelLikeResponse" message="tns:DelLikeResponse"/>
-</operation>
 <operation name="AddLike">
 <input wsam:Action="http://marketplace.com/MarketPlace/AddLikeRequest" message="tns:AddLike"/>
 <output wsam:Action="http://marketplace.com/MarketPlace/AddLikeResponse" message="tns:AddLikeResponse"/>
+</operation>
+<operation name="DelLike">
+<input wsam:Action="http://marketplace.com/MarketPlace/DelLikeRequest" message="tns:DelLike"/>
+<output wsam:Action="http://marketplace.com/MarketPlace/DelLikeResponse" message="tns:DelLikeResponse"/>
 </operation>
 <operation name="AddPurchase">
 <input wsam:Action="http://marketplace.com/MarketPlace/AddPurchaseRequest" message="tns:AddPurchase"/>
@@ -133,10 +133,6 @@
 <input wsam:Action="http://marketplace.com/MarketPlace/GetPurchaseRequest" message="tns:GetPurchase"/>
 <output wsam:Action="http://marketplace.com/MarketPlace/GetPurchaseResponse" message="tns:GetPurchaseResponse"/>
 </operation>
-<operation name="EditProduct">
-<input wsam:Action="http://marketplace.com/MarketPlace/EditProductRequest" message="tns:EditProduct"/>
-<output wsam:Action="http://marketplace.com/MarketPlace/EditProductResponse" message="tns:EditProductResponse"/>
-</operation>
 <operation name="AddProduct">
 <input wsam:Action="http://marketplace.com/MarketPlace/AddProductRequest" message="tns:AddProduct"/>
 <output wsam:Action="http://marketplace.com/MarketPlace/AddProductResponse" message="tns:AddProductResponse"/>
@@ -145,18 +141,13 @@
 <input wsam:Action="http://marketplace.com/MarketPlace/DelProductRequest" message="tns:DelProduct"/>
 <output wsam:Action="http://marketplace.com/MarketPlace/DelProductResponse" message="tns:DelProductResponse"/>
 </operation>
+<operation name="EditProduct">
+<input wsam:Action="http://marketplace.com/MarketPlace/EditProductRequest" message="tns:EditProduct"/>
+<output wsam:Action="http://marketplace.com/MarketPlace/EditProductResponse" message="tns:EditProductResponse"/>
+</operation>
 </portType>
 <binding name="MarketPlacePortBinding" type="tns:MarketPlace">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="SearchProductWithProductId">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
 <operation name="SearchProductWithAccount">
 <soap:operation soapAction=""/>
 <input>
@@ -166,7 +157,16 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="GetPurchaseByName">
+<operation name="SearchProductWithProductName">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="SearchProductWithProductId">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -184,7 +184,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="SearchProductWithProductName">
+<operation name="GetPurchaseByName">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -211,7 +211,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="DelLike">
+<operation name="AddLike">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -220,7 +220,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="AddLike">
+<operation name="DelLike">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -247,15 +247,6 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="EditProduct">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
 <operation name="AddProduct">
 <soap:operation soapAction=""/>
 <input>
@@ -266,6 +257,15 @@
 </output>
 </operation>
 <operation name="DelProduct">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="EditProduct">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
