@@ -1,0 +1,296 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.3.2-b608 (trunk-7979; 2015-01-21T12:50:19+0000) JAXWS-RI/2.2.11-b150120.1832 JAXWS-API/2.2.12 JAXB-RI/2.2.12-b141219.1637 JAXB-API/2.2.13-b141020.1521 svn-revision#unknown. --><xs:schema xmlns:tns="http://marketplace.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://marketplace.com/">
+
+<xs:element name="AddLike" type="tns:AddLike"/>
+
+<xs:element name="AddLikeResponse" type="tns:AddLikeResponse"/>
+
+<xs:element name="AddProduct" type="tns:AddProduct"/>
+
+<xs:element name="AddProductResponse" type="tns:AddProductResponse"/>
+
+<xs:element name="AddPurchase" type="tns:AddPurchase"/>
+
+<xs:element name="AddPurchaseResponse" type="tns:AddPurchaseResponse"/>
+
+<xs:element name="CheckLike" type="tns:CheckLike"/>
+
+<xs:element name="CheckLikeResponse" type="tns:CheckLikeResponse"/>
+
+<xs:element name="DelLike" type="tns:DelLike"/>
+
+<xs:element name="DelLikeResponse" type="tns:DelLikeResponse"/>
+
+<xs:element name="DelProduct" type="tns:DelProduct"/>
+
+<xs:element name="DelProductResponse" type="tns:DelProductResponse"/>
+
+<xs:element name="EditProduct" type="tns:EditProduct"/>
+
+<xs:element name="EditProductResponse" type="tns:EditProductResponse"/>
+
+<xs:element name="GetAccWithAccountId" type="tns:GetAccWithAccountId"/>
+
+<xs:element name="GetAccWithAccountIdResponse" type="tns:GetAccWithAccountIdResponse"/>
+
+<xs:element name="GetAllProduct" type="tns:GetAllProduct"/>
+
+<xs:element name="GetAllProductResponse" type="tns:GetAllProductResponse"/>
+
+<xs:element name="GetPurchase" type="tns:GetPurchase"/>
+
+<xs:element name="GetPurchaseByName" type="tns:GetPurchaseByName"/>
+
+<xs:element name="GetPurchaseByNameResponse" type="tns:GetPurchaseByNameResponse"/>
+
+<xs:element name="GetPurchaseResponse" type="tns:GetPurchaseResponse"/>
+
+<xs:element name="SearchProductWithAccount" type="tns:SearchProductWithAccount"/>
+
+<xs:element name="SearchProductWithAccountResponse" type="tns:SearchProductWithAccountResponse"/>
+
+<xs:element name="SearchProductWithProductId" type="tns:SearchProductWithProductId"/>
+
+<xs:element name="SearchProductWithProductIdResponse" type="tns:SearchProductWithProductIdResponse"/>
+
+<xs:element name="SearchProductWithProductName" type="tns:SearchProductWithProductName"/>
+
+<xs:element name="SearchProductWithProductNameResponse" type="tns:SearchProductWithProductNameResponse"/>
+
+<xs:complexType name="GetPurchaseByName">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="GetPurchaseByNameResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:Purchases" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Purchases">
+<xs:sequence>
+<xs:element name="purchase_id" type="xs:int"/>
+<xs:element name="product_id" type="xs:int"/>
+<xs:element name="account_id" type="xs:int"/>
+<xs:element name="consignee" type="xs:string" minOccurs="0"/>
+<xs:element name="full_address" type="xs:string" minOccurs="0"/>
+<xs:element name="postal_code" type="xs:string" minOccurs="0"/>
+<xs:element name="phone_number" type="xs:string" minOccurs="0"/>
+<xs:element name="credit_number" type="xs:string" minOccurs="0"/>
+<xs:element name="credit_veri" type="xs:int"/>
+<xs:element name="quantity" type="xs:int"/>
+<xs:element name="product_name" type="xs:string" minOccurs="0"/>
+<xs:element name="username" type="xs:string" minOccurs="0"/>
+<xs:element name="product_description" type="xs:string" minOccurs="0"/>
+<xs:element name="product_price" type="xs:int"/>
+<xs:element name="purchase_datetime" type="xs:string" minOccurs="0"/>
+<xs:element name="imgsrc" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="GetPurchase">
+<xs:sequence>
+<xs:element name="arg0" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="GetPurchaseResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:Purchases" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="EditProduct">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"/>
+<xs:element name="arg1" type="xs:string" minOccurs="0"/>
+<xs:element name="arg2" type="xs:string" minOccurs="0"/>
+<xs:element name="arg3" type="xs:string" minOccurs="0"/>
+<xs:element name="arg4" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="EditProductResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="GetAllProduct">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="GetAllProductResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:Product" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Product">
+<xs:sequence>
+<xs:element name="product_id" type="xs:int"/>
+<xs:element name="product_name" type="xs:string" minOccurs="0"/>
+<xs:element name="username" type="xs:string" minOccurs="0"/>
+<xs:element name="product_description" type="xs:string" minOccurs="0"/>
+<xs:element name="product_price" type="xs:double"/>
+<xs:element name="likes" type="xs:int"/>
+<xs:element name="purchase" type="xs:int"/>
+<xs:element name="product_datetime" type="xs:string" minOccurs="0"/>
+<xs:element name="imgsrc" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="AddProduct">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"/>
+<xs:element name="arg1" type="xs:string" minOccurs="0"/>
+<xs:element name="arg2" type="xs:string" minOccurs="0"/>
+<xs:element name="arg3" type="xs:string" minOccurs="0"/>
+<xs:element name="arg4" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="AddProductResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="DelLike">
+<xs:sequence>
+<xs:element name="arg0" type="xs:int"/>
+<xs:element name="arg1" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="DelLikeResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="SearchProductWithProductName">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="SearchProductWithProductNameResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:Product" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="CheckLike">
+<xs:sequence>
+<xs:element name="arg0" type="xs:int"/>
+<xs:element name="arg1" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="CheckLikeResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="GetAccWithAccountId">
+<xs:sequence>
+<xs:element name="arg0" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="GetAccWithAccountIdResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:Account" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Account">
+<xs:sequence>
+<xs:element name="account_id" type="xs:int"/>
+<xs:element name="username" type="xs:string" minOccurs="0"/>
+<xs:element name="email" type="xs:string" minOccurs="0"/>
+<xs:element name="password" type="xs:string" minOccurs="0"/>
+<xs:element name="name" type="xs:string" minOccurs="0"/>
+<xs:element name="address" type="xs:string" minOccurs="0"/>
+<xs:element name="postal" type="xs:int"/>
+<xs:element name="number" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="DelProduct">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="DelProductResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="SearchProductWithAccount">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="SearchProductWithAccountResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:Product" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="AddPurchase">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"/>
+<xs:element name="arg1" type="xs:string" minOccurs="0"/>
+<xs:element name="arg2" type="xs:string" minOccurs="0"/>
+<xs:element name="arg3" type="xs:string" minOccurs="0"/>
+<xs:element name="arg4" type="xs:string" minOccurs="0"/>
+<xs:element name="arg5" type="xs:string" minOccurs="0"/>
+<xs:element name="arg6" type="xs:string" minOccurs="0"/>
+<xs:element name="arg7" type="xs:string" minOccurs="0"/>
+<xs:element name="arg8" type="xs:string" minOccurs="0"/>
+<xs:element name="arg9" type="xs:string" minOccurs="0"/>
+<xs:element name="arg10" type="xs:string" minOccurs="0"/>
+<xs:element name="arg11" type="xs:string" minOccurs="0"/>
+<xs:element name="arg12" type="xs:string" minOccurs="0"/>
+<xs:element name="arg13" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="AddPurchaseResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="SearchProductWithProductId">
+<xs:sequence>
+<xs:element name="arg0" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="SearchProductWithProductIdResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:Product" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="AddLike">
+<xs:sequence>
+<xs:element name="arg0" type="xs:int"/>
+<xs:element name="arg1" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="AddLikeResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://localhost:8080/SaleProject_WebService/MarketPlace?wsdl" uri="wsdl/localhost_8080/SaleProject_WebService/MarketPlace.wsdl"/>
+    <system systemId="http://localhost:8080/SaleProject_WebService/MarketPlace?xsd=1" uri="wsdl/localhost_8080/SaleProject_WebService/MarketPlace.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/SaleProject_MarketPlace/MarketPlace?wsdl" uri="wsdl/localhost_8080/SaleProject_MarketPlace/MarketPlace.wsdl"/>
+    <system systemId="http://localhost:8080/SaleProject_MarketPlace/MarketPlace?xsd=1" uri="wsdl/localhost_8080/SaleProject_MarketPlace/MarketPlace.xsd_1.xsd"/>
+    <system systemId="http://localhost:8081/SaleProject_WebService/MarketPlace?wsdl" uri="wsdl/localhost_8081/SaleProject_WebService/MarketPlace.wsdl"/>
+    <system systemId="http://localhost:8081/SaleProject_WebService/MarketPlace?xsd=1" uri="wsdl/localhost_8081/SaleProject_WebService/MarketPlace.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/SaleProject_WebService/validator?wsdl" uri="wsdl/localhost_8080/SaleProject_WebService/validator.wsdl"/>
+    <system systemId="http://localhost:8080/SaleProject_WebService/validator?xsd=1" uri="wsdl/localhost_8080/SaleProject_WebService/validator.xsd_1.xsd"/>
+</catalog>
