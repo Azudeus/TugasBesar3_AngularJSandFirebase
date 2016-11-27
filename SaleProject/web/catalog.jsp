@@ -10,6 +10,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <link rel="stylesheet" type="text/css" href="style.css">
 <%@include file="request.jsp"%>
+
+<script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
+
 <!DOCTYPE html>
 <html>
     <body>
@@ -124,3 +127,128 @@
         
     </body>
 </html>
+
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBMPf5WlueEyB3gfXTBdomgpHqSkFbL3EA",
+    authDomain: "saleproject-11a54.firebaseapp.com",
+    databaseURL: "https://saleproject-11a54.firebaseio.com",
+    storageBucket: "saleproject-11a54.appspot.com",
+    messagingSenderId: "573176900803"
+  };
+  firebase.initializeApp(config);
+  
+  const messaging = firebase.messaging();
+  
+  messaging.onTokenRefresh(function(){
+      messaging.getToken()
+              .then(function(token) {
+                console.log('Token refreshed');
+                setTokenSentToServer(false);
+                setTokenSentToServer(refreshedToken);
+                resetUI();
+              })
+          .catch(function(err) {
+              console.log('Unable to retrieve refreshed token',err);
+              showToken('Unable to retrieve refreshed token',err);
+      });
+  });
+  
+  messaging.requestPermission()
+          .then(function(){
+              console.log('Have Permission');
+              return messaging.getToken();
+  })
+          .catch(function(err) {
+              console.log('Error Occured.');
+  })
+          .then(function(token){
+              if (token) {
+                  console.log(token);
+                  sendTokenToServer(token);
+//                  updateUIForPushEnabled(token);
+              } else {
+                  console.log('No instance ID Token available.Request permission to get one');
+                  updateUIForPushPermissionEnabled();
+//                  setTokenSentToServer(false);
+              }
+  })
+          .catch(function(err){
+              console.log('An error occured while retrieving token',err);
+//              showToken('Error retrieving Instance ID TOken',err);
+//              setTokenSentToServer(false);
+  });
+  
+  messaging.onMessage(function(payload) {
+      console.log('onMessage: ',payload);
+      appendMessage(payload);
+  });
+  
+  function showToken(token) {
+      var tokenElement = document.querySelector('token');
+      tokenElement.textContent = token;
+  }
+  
+  function sendTokenToServer(token) {
+      if(!isTokenSentToServer()) {
+          console.log('Sending token to server');
+          setTokenSentToServer(true);
+      } else {
+          console.log('Token already sent sent to server');
+      }
+  }
+ 
+  function isTokenSentToServer() {
+      if (window.localStorage.getItem('sentToServer') == 1) {
+          return true;
+      } else {
+          return false;
+      }
+  }
+ 
+  function setTokenSentToServer(sent) {
+      if(sent) {
+          window.localStorage.setItem('sentToServer',1);          
+      } else {
+          window.localStorage.setItem('sentToServer',0);
+      }
+  }
+  
+  function deleteToken() {
+      messaging.getToken()
+              .then(function(token) {
+                  messaging.deleteToken(token)
+                  .then(function() {
+                      console.log('Token deleted');
+                      setTokenSentToServer(false);
+                      resetUI();
+                  })
+                          .catch(function(err) {
+                              console.log('Unable to delete token ',err);
+                  });
+      }).catch(function(err) {
+          console.log('Error retrieving token ', err);
+          showToken('Error retrieving token ', err);
+      });
+  }
+  
+  function appendMessage(payload) {
+      const messageElement = document.querySelector('#message');
+      const dataHeaderElement = document.createElement('h5');
+      const dataElement= document.createElement('pre');
+      dataElement.style='overflow-x:hidden';
+      dataHeaderElement.textContent = 'Received Message:';
+      dataElement.textContent = JSON.stringify(payload,null,2);
+      messagesElement.appendChild(dataHeaderElement);
+      messagesElement.appendChild(dataElement);
+  }
+
+  function clearMessages() {
+      const messageElement = document.querySelector('#messages');
+      while (messageElement.hasChildNodes()) {
+          messageElement.removeChild(messageElement.lastChild);
+      }
+  }
+  
+</script>
