@@ -122,7 +122,23 @@ textarea:focus, input:focus{
         <p id="token">
             
         </p>
+
+    <form method="post" action="connector.jsp" id="formSendMessage">
+    <input type="hidden" name="title" value="send">
+    <input type="hidden" name="fbtoken" value=<%=token%>>
+    <input type="hidden" name="username" value=<%=username%>>
+    <input type="hidden" name="message" value="asd">    
+    <h2><a href="javascript:;" class = "redlink" onclick="document.getElementById('formSendMessage').submit();">sendMessage</a></h2><br>  
+    </form>        
+
         
+    <form method="post" action="connector.jsp" id="formSendMessage">
+    <input type="hidden" name="title" value="send">
+    <input type="hidden" name="fbtoken" value=<%=token%>>
+    <input type="hidden" name="username" value=<%=username%>>
+    <input type="hidden" name="message" value="asd">    
+    <h2><a href="javascript:;" class = "redlink" onclick="document.getElementById('formSendMessage').submit();">sendMessage</a></h2><br>  
+    </form>        
         
         
         
@@ -322,12 +338,11 @@ var modal = document.getElementById('myModal');
   const messaging = firebase.messaging();
   const tokenDivId = 'token_div';
   const permissionDivId = 'permission_div';
-  var access_token;
   
   messaging.onTokenRefresh(function(){
+      console.log("Refreshed")
       messaging.getToken()
               .then(function(token) {
-                console.log('Token refreshed');
                 setTokenSentToServer(false);
                 setTokenSentToServer(refreshedToken);
                 resetUI();
@@ -341,7 +356,8 @@ var modal = document.getElementById('myModal');
   messaging.requestPermission()
           .then(function(){
               console.log('Have Permission');
-              return messaging.getToken();
+              var tk = messaging.getToken();
+              return tk;
   })
           .catch(function(err) {
               console.log('Error Occured.');
