@@ -39,9 +39,9 @@ public class sendInfo extends HttpServlet {
         try{
             PrintWriter out = response.getWriter();
             /* TODO output your page here. You may use following sample code. */
-            String fbtoken = request.getParameter("fbToken");
+            String fbtoken = request.getParameter("fbtoken");
             String username = request.getParameter("username");
-            
+            out.println("abc");
             Connection con = DBChatConnect.connect();
             PreparedStatement ps =con.prepareStatement
                     ("INSERT INTO registry(username,fbtoken) values (?,?)");
@@ -56,6 +56,7 @@ public class sendInfo extends HttpServlet {
             if (!check.next()) {
                 int i =ps.executeUpdate();
                 if (i>0) {
+                    out.println("Success");
                 }else{
                     out.println("Error Inputing token");
                 }
@@ -63,6 +64,8 @@ public class sendInfo extends HttpServlet {
                 out.println("Theres duplicate token");
             }
         } catch (ClassNotFoundException | SQLException ex) {
+            PrintWriter out = response.getWriter();
+            out.println(ex);
             
         }
     }

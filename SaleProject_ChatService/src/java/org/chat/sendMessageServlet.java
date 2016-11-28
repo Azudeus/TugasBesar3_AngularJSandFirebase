@@ -36,9 +36,12 @@ public class sendMessageServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        String fbtoken = request.getParameter("fbToken");
+        String fbtoken = request.getParameter("fbtoken");
+        out.println("this is fb token " + fbtoken);
         String username = request.getParameter("username");
+        out.println("this is username " + username);
         String message = request.getParameter("message");
+        out.println("this is the message " + message);
         FBSendMessage.executePost(username, message);
     }
 

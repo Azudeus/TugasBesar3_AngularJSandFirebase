@@ -124,20 +124,20 @@ textarea:focus, input:focus{
         </p>
 
     <form method="post" action="connector.jsp" id="formSendMessage">
-    <input type="hidden" name="title" value="send">
-    <input type="hidden" name="fbtoken" value=<%=token%>>
+    <input type="hidden" name="title" value="send_message">
+    <input type="hidden" name="fbtoken" id = "tokenByFB">
     <input type="hidden" name="username" value=<%=username%>>
     <input type="hidden" name="message" value="asd">    
     <h2><a href="javascript:;" class = "redlink" onclick="document.getElementById('formSendMessage').submit();">sendMessage</a></h2><br>  
     </form>        
 
         
-    <form method="post" action="connector.jsp" id="formSendMessage">
-    <input type="hidden" name="title" value="send">
-    <input type="hidden" name="fbtoken" value=<%=token%>>
+    <form method="post" action="connector.jsp" id="formSendToken">
+    <input type="hidden" name="title" value="send_token">
+    <input type="hidden" name="fbtoken" id = "tokenByFB2">
     <input type="hidden" name="username" value=<%=username%>>
-    <input type="hidden" name="message" value="asd">    
-    <h2><a href="javascript:;" class = "redlink" onclick="document.getElementById('formSendMessage').submit();">sendMessage</a></h2><br>  
+  
+    <h2><a href="javascript:;" class = "redlink" onclick="document.getElementById('formSendToken').submit();">addChatToken</a></h2><br>  
     </form>        
         
         
@@ -294,6 +294,12 @@ app.controller("chat", ['$scope', function($scope) {
         
     };
     
+    $scope.addMessage = function(uname, msg){
+        var messagetemp = {username : uname , message :msg};
+        $scope.asd.push(messagetemp);
+        
+    }
+    
    
 
 }]);
@@ -310,6 +316,13 @@ var modal = document.getElementById('myModal');
         var scope = angular.element(document.getElementById('chatController')).scope();
         scope.$apply(function(){scope.updateUsername(username);});
     }
+    
+    function openModal2(uname){
+         modal.style.display = "block";
+         var scope = angular.element(document.getElementById('chatController')).scope();
+         scope.$apply(function(){scope.updateUsername(username);});    
+    }
+    
 
     function closeModal(){
         modal.style.display = "none";
@@ -357,6 +370,8 @@ var modal = document.getElementById('myModal');
           .then(function(){
               console.log('Have Permission');
               var tk = messaging.getToken();
+              var asd = String(tk);
+              
               return tk;
   })
           .catch(function(err) {
@@ -381,12 +396,21 @@ var modal = document.getElementById('myModal');
   
   messaging.onMessage(function(payload) {
       console.log('onMessage: ',payload);
-      appendMessage(payload);
+      y = payload.notification.title;
+      x = payload.notification.body;
+       openModal2(y);
+       var scope = angular.element(document.getElementById('chatController')).scope();
+        scope.$apply(function(){scope.addMessage(y,x);});
+        
+        
+      //appendMessage(payload);
   });
   
   function showToken(token) {
       var tokenElement = document.querySelector('#token');
       tokenElement.textContent = token;
+      document.getElementById("tokenByFB").value = document.getElementById("token").innerHTML;
+      document.getElementById("tokenByFB2").value = document.getElementById("token").innerHTML; 
   }
   
   function sendTokenToServer(token) {
@@ -438,7 +462,7 @@ var modal = document.getElementById('myModal');
       const dataElement= document.createElement('pre');
       dataElement.style='overflow-x:hidden';
       dataHeaderElement.textContent = 'Received Message'; 
-     dataElement.textContent = JSON.stringify(payload,null,2);
+      dataElement.textContent = JSON.stringify(payload,null,2);
       messagesElement.appendChild(dataHeaderElement);
       messagesElement.appendChild(dataElement);
   }

@@ -10,13 +10,19 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Enumeration;
 import org.json.JSONObject;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 
 /**
  *
@@ -38,36 +44,41 @@ public class FBSendMessage {
     
     JSONObject message = new JSONObject();
     String key_send = "key=";
-    key_send+=searchFBToken(username);
+    key_send=searchFBToken(username);
     message.put("to",key_send);
-    message.put("priority","high");
-
+    //message.put("priority","high");
+ 
     JSONObject content = new JSONObject();
+    content.put("title", username);
     content.put("text",text);
+    message.put("notification",content);
     
-    message.put("data",content);
     
-    
-//    connection.setUseCaches(false);
-//    connection.setDoOutput(true);
+    connection.setUseCaches(false);
+    connection.setDoOutput(true);
 
     //Send request
     DataOutputStream wr = new DataOutputStream (
         connection.getOutputStream());
-//    wr.writeBytes(urlParameters);
+    wr.writeBytes(message.toString());
+    System.out.println(message.toString());
+//    System.out.println(wr);
     wr.close();
 
-//    //Get Response  
-//    InputStream is = connection.getInputStream();
-//    BufferedReader rd = new BufferedReader(new InputStreamReader(is));
-//    StringBuilder response = new StringBuilder(); // or StringBuffer if Java version 5+
-//    String line;
-//    while ((line = rd.readLine()) != null) {
-//      response.append(line);
-//      response.append('\r');
-//    }
-//    rd.close();
-//    return response.toString();
+
+    
+    System.out.println("success");
+    //Get Response  
+    InputStream is = connection.getInputStream();
+    BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+    StringBuilder response = new StringBuilder(); // or StringBuffer if Java version 5+
+    String line;
+    while ((line = rd.readLine()) != null) {
+      response.append(line);
+      response.append('\r');
+    }
+    rd.close();
+    System.out.println(response.toString());
 
   } catch (IOException | NullPointerException e) {
         e.printStackTrace();
