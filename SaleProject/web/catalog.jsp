@@ -33,6 +33,9 @@
         <p id="message">
             message here
         </p>
+        <p id="token">
+            
+        </p>
         
         
         
@@ -151,6 +154,7 @@
   const messaging = firebase.messaging();
   const tokenDivId = 'token_div';
   const permissionDivId = 'permission_div';
+  var access_token;
   
   messaging.onTokenRefresh(function(){
       messaging.getToken()
@@ -178,17 +182,17 @@
               if (token) {
                   console.log(token);
                   sendTokenToServer(token);
-//                  updateUIForPushEnabled(token);
+                  updateUIForPushEnabled(token);
               } else {
                   console.log('No instance ID Token available.Request permission to get one');
                   updateUIForPushPermissionEnabled();
-//                  setTokenSentToServer(false);
+                  setTokenSentToServer(false);
               }
   })
           .catch(function(err){
               console.log('An error occured while retrieving token',err);
-//              showToken('Error retrieving Instance ID TOken',err);
-//              setTokenSentToServer(false);
+              showToken('Error retrieving Instance ID TOken',err);
+              setTokenSentToServer(false);
   });
   
   messaging.onMessage(function(payload) {
@@ -197,7 +201,7 @@
   });
   
   function showToken(token) {
-      var tokenElement = document.querySelector('token');
+      var tokenElement = document.querySelector('#token');
       tokenElement.textContent = token;
   }
   
@@ -206,7 +210,7 @@
           console.log('Sending token to server');
           setTokenSentToServer(true);
       } else {
-          console.log('Token already sent sent to server');
+          console.log('Token already sent to server');
       }
   }
  
@@ -245,20 +249,20 @@
   }
   
   function appendMessage(payload) {
-      const messageElement = document.querySelector("#message");
+      const messagesElement = document.querySelector("#message");
       const dataHeaderElement = document.createElement('h5');
       const dataElement= document.createElement('pre');
       dataElement.style='overflow-x:hidden';
       dataHeaderElement.textContent = 'Received Message'; 
      dataElement.textContent = JSON.stringify(payload,null,2);
-      messageElement.appendChild(dataHeaderElement);
-      messageElement.appendChild(dataElement);
+      messagesElement.appendChild(dataHeaderElement);
+      messagesElement.appendChild(dataElement);
   }
 
   function clearMessages() {
-      const messageElement = document.querySelector("#messages");
-      while (messageElement.hasChildNodes()) {
-          messageElement.removeChild(messageElement.lastChild);
+      const messagesElement = document.querySelector("#message");
+      while (messagesElement.hasChildNodes()) {
+          messagesElement.removeChild(messagesElement.lastChild);
       }
   }
   
@@ -268,7 +272,7 @@
       messaging.getToken().
               then(function(token) {
                   if(token) {
-                      sentTokenToServer(token);
+                      sendTokenToServer(token);
                       updateUIForPushEnabled(token);
                   } else {
                       console.log('No Instance Token ID available. Requesting permission');
@@ -294,8 +298,14 @@
     showHideDiv(tokenDivId, false);
     showHideDiv(permissionDivId, true);
   }
+    function showHideDiv(divId, show) {
+    const div = document.querySelector('#' + divId);
+    if (show) {
+      div.style = "display: visible";
+    } else {
+      div.style = "display: none";
+    }
+  }
   
-  
-  resetUI();
   
 </script>
