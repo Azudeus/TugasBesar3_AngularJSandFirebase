@@ -12,6 +12,92 @@
 <%@include file="request.jsp"%>
 
 <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+
+<style>
+/* The Modal (background) */
+
+
+/* Modal Content */
+.modal{
+    display : none ;
+
+}
+
+.modal-content {
+    position: fixed;
+    bottom: 0;
+    right : 20px;
+    background-color: #fefefe;
+    width: 30%;
+    -webkit-animation-name: slideIn;
+    -webkit-animation-duration: 0.4s;
+    animation-name: slideIn;
+    animation-duration: 0.4s
+}
+
+/* The Close Button */
+.close {
+    color: black;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-header {
+    padding: 2px 15px;
+    border-style : ridge;
+    height: 30px;
+    background-color :  #fefefe;
+    color: black;
+}
+
+.modal-body {padding: 2px 16px;
+    border-left : ridge;
+    border-right : ridge;
+}
+
+.modal-footer {
+    padding: 2px 16px;
+    background-color: #fefefe;
+    color: white;
+    border-style : ridge;
+}
+
+/* Add Animation */
+@-webkit-keyframes slideIn {
+    from {bottom: -300px; opacity: 0} 
+    to {bottom: 0; opacity: 1}
+}
+
+@keyframes slideIn {
+    from {bottom: -300px; opacity: 0}
+    to {bottom: 0; opacity: 1}
+}
+
+@-webkit-keyframes fadeIn {
+    from {opacity: 0} 
+    to {opacity: 1}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0} 
+    to {opacity: 1}
+}
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
+</style>
 
 <!DOCTYPE html>
 <html>
@@ -91,6 +177,36 @@
         </table>
         </form>
 
+</div>
+
+
+            <!-- Trigger/Open The Modal -->
+    <button id="myBtn">Open Modal</button>
+
+    <!-- The Modal -->
+    <div ng-app="BasicChat">
+    <div ng-controller="chat" id = "chatController">
+    <div id="myModal" class="modal">
+      
+      <!-- Modal content -->
+      <div class="modal-content">
+        <div class="modal-header">
+            <span class="close"><a href='#' onclick='closeModal()'>&times</a></span>
+               {{messageuser}}   
+          <br>
+        </div>
+        <div class="modal-body" ng-repeat = "message in asd">
+         {{message.username}} : {{message.message}}
+        </div>
+        <div class="modal-footer">
+          <form ng-submit="send()">
+                <input ng-model="textbox" style="border:none">
+          </form>
+        </div>
+      </div>
+
+      </div>
+    </div>
 
    
 
@@ -102,7 +218,8 @@
                 com.marketplace.MarketPlace port = service.getMarketPlacePort();
                 int CheckLike = port.checkLike(temp.getProductId(), account_id);
                  out.println(
-                "<p id = 'product'><b>" + temp.getUsername() +"</b> <br> added this on " + temp.getProductDatetime()  +"<hr>"
+                "<p id = 'product'><b><a href='#' onclick='openModal(this)' username = " + temp.getUsername() + " >" + temp.getUsername() +"</a></b>"
+                + " <br> added this on " + temp.getProductDatetime()  +"<hr>"
                 +"<table class = 'producttable'>"
                 +"<tr>"
                 +"<td rowspan = '5' width = 128px> <img src = 'img/" + temp.getImgsrc() + "' style = 'width:128px;height:128px;' > </td>"
@@ -134,11 +251,62 @@
         %>
         
         
-        
-        
+        </div>
+    
         
     </body>
 </html>
+<!-- Angular js -->
+<script>
+var message = {username : "rellons", message : "halo"};
+var message2 = {username : "azudeus", message : "halo juga"};
+    
+var app = angular.module("BasicChat", []);
+app.controller("chat", ['$scope', function($scope) {
+    $scope.asd = [message,message2];
+    $scope.messageuser = "azudeus";
+    
+    $scope.send = function() {
+        console.log("asd");
+        var messagetemp = {username : "rellons", message :this.textbox};
+        $scope.asd.push(messagetemp);
+        $scope.textbox = '';
+    };
+    
+    $scope.updateUsername = function(a){
+        $scope.messageuser = a;
+        
+    };
+    
+   
+
+}]);
+</script>
+
+<script>
+// Get the modal
+var modal = document.getElementById('myModal');
+
+
+     function openModal(element){
+        modal.style.display = "block";
+        var username = element.getAttribute("username");
+        var scope = angular.element(document.getElementById('chatController')).scope();
+        scope.$apply(function(){scope.updateUsername(username);});
+    }
+
+    function closeModal(){
+        modal.style.display = "none";
+    }
+
+
+//// When the user clicks anywhere outside of the modal, close it
+//window.onclick = function(event) {
+//    if (event.target == modal) {
+//        modal.style.display = "none";
+//    }
+//}
+</script>
 
 <script>
   // Initialize Firebase
