@@ -23,7 +23,16 @@
             int account_id = Integer.parseInt(((String)session.getAttribute("account_id")).trim());
         %>
         
-        
+        <h1>Testing here</h1>
+        <div id="token_div">
+            token div
+        </div>
+        <div id="permission_div">
+            permission div
+        </div>
+        <p id="message">
+            message here
+        </p>
         
         
         
@@ -140,6 +149,8 @@
   firebase.initializeApp(config);
   
   const messaging = firebase.messaging();
+  const tokenDivId = 'token_div';
+  const permissionDivId = 'permission_div';
   
   messaging.onTokenRefresh(function(){
       messaging.getToken()
@@ -234,21 +245,57 @@
   }
   
   function appendMessage(payload) {
-      const messageElement = document.querySelector('#message');
+      const messageElement = document.querySelector("#message");
       const dataHeaderElement = document.createElement('h5');
       const dataElement= document.createElement('pre');
       dataElement.style='overflow-x:hidden';
-      dataHeaderElement.textContent = 'Received Message:';
-      dataElement.textContent = JSON.stringify(payload,null,2);
-      messagesElement.appendChild(dataHeaderElement);
-      messagesElement.appendChild(dataElement);
+      dataHeaderElement.textContent = 'Received Message'; 
+     dataElement.textContent = JSON.stringify(payload,null,2);
+      messageElement.appendChild(dataHeaderElement);
+      messageElement.appendChild(dataElement);
   }
 
   function clearMessages() {
-      const messageElement = document.querySelector('#messages');
+      const messageElement = document.querySelector("#messages");
       while (messageElement.hasChildNodes()) {
           messageElement.removeChild(messageElement.lastChild);
       }
   }
+  
+  function resetUI() {
+      clearMessages();
+      showToken('loading...');
+      messaging.getToken().
+              then(function(token) {
+                  if(token) {
+                      sentTokenToServer(token);
+                      updateUIForPushEnabled(token);
+                  } else {
+                      console.log('No Instance Token ID available. Requesting permission');
+                      updateUIForPushPermissionRequired();
+                      setTokenToServer(false);
+                  }
+      })
+              .catch(function(err) {
+                  console.log('Error retrieving token',err);
+                  showToken('Error retrieving ID Token',err);
+                  setTokenSentToServer(false);          
+      });
+  }
+  
+
+  function updateUIForPushEnabled(currentToken) {
+    showHideDiv(tokenDivId, true);
+    showHideDiv(permissionDivId, false);
+    showToken(currentToken);
+  }
+  
+    function updateUIForPushPermissionRequired() {
+    showHideDiv(tokenDivId, false);
+    showHideDiv(permissionDivId, true);
+  }
+  
+  
+  resetUI();
   
 </script>
