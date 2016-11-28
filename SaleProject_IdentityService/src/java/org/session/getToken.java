@@ -44,7 +44,11 @@ public class getToken extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-                PrintWriter out = response.getWriter();
+        PrintWriter out = response.getWriter();
+        
+        String user_agent = request.getParameter("user_agent");
+        String ip_address = request.getParameter("ip_address");
+        
         String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         StringBuilder salt = new StringBuilder();
         Random rnd = new Random();
@@ -53,6 +57,10 @@ public class getToken extends HttpServlet {
             salt.append(SALTCHARS.charAt(index));
         }
         String access_token = salt.toString();
+        access_token += ";";
+        access_token += user_agent;
+        access_token += ";";
+        access_token += ip_address;
 
         Date date = new Date();
         

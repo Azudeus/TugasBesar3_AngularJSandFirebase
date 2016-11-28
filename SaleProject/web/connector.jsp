@@ -39,12 +39,6 @@
         }
       }
       String x;
-      psend+="&user_agent=";
-      String userAgent = request.getHeader("User-Agent");
-      psend+=userAgent;
-      psend+="&ip_address=";
-      String ipAddress = request.getRemoteAddr();
-      psend+=ipAddress;
       if (type.equals("login")){
         x = executePost("http://localhost:8080/SaleProject_IdentityService/LoginServlet",psend);
         JSONObject jObject = new JSONObject(x);
@@ -55,6 +49,14 @@
             session.setAttribute("username",y);
             String tsend = "account_id=";
             tsend+=x.trim();
+            
+            tsend+="&user_agent=";
+            String userAgent = request.getHeader("User-Agent");
+            tsend+=userAgent;
+            tsend+="&ip_address=";
+            String ipAddress = request.getRemoteAddr();
+            tsend+=ipAddress;
+            
             String token = executePost("http://localhost:8080/SaleProject_IdentityService/getToken",tsend);
             session.setAttribute("token",token.trim());
             response.sendRedirect("catalog.jsp");
@@ -69,6 +71,14 @@
                 session.setAttribute("username",y);
                 String tsend = "account_id=";
                 tsend+=x.trim();
+                
+                tsend+="&user_agent=";
+                String userAgent = request.getHeader("User-Agent");
+                tsend+=userAgent;
+                tsend+="&ip_address=";
+                String ipAddress = request.getRemoteAddr();
+                tsend+=ipAddress;
+                
                 String token = executePost("http://localhost:8080/SaleProject_IdentityService/getToken",tsend);
                 session.setAttribute("token",token.trim());
                 response.sendRedirect("catalog.jsp");
