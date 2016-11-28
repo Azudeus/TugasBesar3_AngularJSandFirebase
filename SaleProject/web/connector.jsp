@@ -39,6 +39,12 @@
         }
       }
       String x;
+      psend+="&user_agent=";
+      String userAgent = request.getHeader("User-Agent");
+      psend+=userAgent;
+      psend+="&ip_address=";
+      String ipAddress = request.getRemoteAddr();
+      psend+=ipAddress;
       if (type.equals("login")){
         x = executePost("http://localhost:8080/SaleProject_IdentityService/LoginServlet",psend);
         JSONObject jObject = new JSONObject(x);
@@ -75,6 +81,12 @@
            }else{
                out.println("Error");
            }
+      } else if (type.equals("send_token")) {
+          x = executePost("http://localhost:8080/SaleProject_ChatService/sendInfo",psend);
+          response.sendRedirect("catalog.jsp");
+      } else if (type.equals("send_message")) {
+          x = executePost("http://localhost:8080/SaleProject_ChatService/sendMessageServlet",psend);
+          response.sendRedirect("catalog.jsp");          
       }else {
           out.println("notfound");
       }
