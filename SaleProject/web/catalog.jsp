@@ -123,14 +123,15 @@ textarea:focus, input:focus{
             
         </p>
 
-    <form method="post" action="connector.jsp" id="formSendMessage">
+    <form method="post" action="connector.jsp" id="formSendMessage" target = "dummyframe">
     <input type="hidden" name="title" value="send_message">
     <input type="hidden" name="fbtoken" id = "tokenByFB">
-    <input type="hidden" name="username" value=<%=username%>>
-    <input type="hidden" name="message" value="asd">    
+    <input type="hidden" name="username" id = "send_username" value=<%=username%> >
+    <input type="hidden" name="message" value="asd" id = "send_message">               
     <h2><a href="javascript:;" class = "redlink" onclick="document.getElementById('formSendMessage').submit();">sendMessage</a></h2><br>  
     </form>        
 
+    <iframe width="0" height="0" border="0" name="dummyframe" id="dummyframe"></iframe>
         
     <form method="post" action="connector.jsp" id="formSendToken">
     <input type="hidden" name="title" value="send_token">
@@ -274,19 +275,22 @@ textarea:focus, input:focus{
 </html>
 <!-- Angular js -->
 <script>
-var message = {username : "rellons", message : "halo"};
-var message2 = {username : "azudeus", message : "halo juga"};
+var currentusername = "<%=username%>";
     
 var app = angular.module("BasicChat", []);
 app.controller("chat", ['$scope', function($scope) {
-    $scope.asd = [message,message2];
-    $scope.messageuser = "azudeus";
+    $scope.asd = [];
+  
     
     $scope.send = function() {
-        console.log("asd");
-        var messagetemp = {username : "rellons", message :this.textbox};
+        var messagetemp = {username : currentusername, message :this.textbox};
+        var message = messagetemp.message;
         $scope.asd.push(messagetemp);
         $scope.textbox = '';
+        document.getElementById("send_username").value = currentusername;
+        document.getElementById("send_message").value = message;
+        document.getElementById('formSendMessage').submit();
+        
     };
     
     $scope.updateUsername = function(a){
@@ -297,6 +301,7 @@ app.controller("chat", ['$scope', function($scope) {
     $scope.addMessage = function(uname, msg){
         var messagetemp = {username : uname , message :msg};
         $scope.asd.push(messagetemp);
+  
         
     }
     

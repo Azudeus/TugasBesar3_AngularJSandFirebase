@@ -93,10 +93,12 @@
            }
       } else if (type.equals("send_token")) {
           x = executePost("http://localhost:8080/SaleProject_ChatService/sendInfo",psend);
+         
           response.sendRedirect("catalog.jsp");
       } else if (type.equals("send_message")) {
           x = executePost("http://localhost:8080/SaleProject_ChatService/sendMessageServlet",psend);
-          response.sendRedirect("catalog.jsp");          
+           out.println(psend);
+          //response.sendRedirect("catalog.jsp");          
       }else {
           out.println("notfound");
       }
