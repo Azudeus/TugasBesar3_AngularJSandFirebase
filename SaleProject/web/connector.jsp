@@ -52,6 +52,9 @@
             
             tsend+="&user_agent=";
             String userAgent = request.getHeader("User-Agent");
+            userAgent+="kucing";
+            userAgent = userAgent.replaceAll("\\s","");
+            out.println(userAgent);
             tsend+=userAgent;
             tsend+="&ip_address=";
             String ipAddress = request.getRemoteAddr();
@@ -74,6 +77,7 @@
                 
                 tsend+="&user_agent=";
                 String userAgent = request.getHeader("User-Agent");
+                userAgent = userAgent.replaceAll("\\s","");
                 tsend+=userAgent;
                 tsend+="&ip_address=";
                 String ipAddress = request.getRemoteAddr();
@@ -84,8 +88,8 @@
                 response.sendRedirect("catalog.jsp");
             }
       } else if (type.equals("logout")){
-          x = executePost("http://localhost:8080/SaleProject_IdentityService/LogoutServlet",psend);
           out.println(psend); 
+          x = executePost("http://localhost:8080/SaleProject_IdentityService/LogoutServlet",psend);
            if(Integer.parseInt(x.trim())==1){
                response.sendRedirect("login.jsp");             
            }else{
