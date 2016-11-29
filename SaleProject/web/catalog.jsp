@@ -122,6 +122,7 @@ textarea:focus, input:focus{
         <p id="token">
             
         </p>
+<iframe width="0" height="0" border="0" name="dummyframe" id="dummyframe"></iframe>
 
     <form method="post" action="connector.jsp" id="formSendMessage" target = "dummyframe">
     <input type="hidden" name="title" value="send_message">
@@ -133,13 +134,13 @@ textarea:focus, input:focus{
 
     <iframe width="0" height="0" border="0" name="dummyframe" id="dummyframe"></iframe>
         
-    <form method="post" action="connector.jsp" id="formSendToken">
+    <form method="post" action="connector.jsp" id="formSendToken" target="dummyframe">
     <input type="hidden" name="title" value="send_token">
     <input type="hidden" name="fbtoken" id = "tokenByFB2">
     <input type="hidden" name="username" value=<%=username%>>
-  
-    <h2><a href="javascript:;" class = "redlink" onclick="document.getElementById('formSendToken').submit();">addChatToken</a></h2><br>  
     </form>        
+  
+    <!--<h2><a href="javascript:;" class = "redlink" onclick="document.getElementById('formSendToken').submit();">addChatToken</a></h2><br>-->  
         
         
         
@@ -235,7 +236,10 @@ textarea:focus, input:focus{
                 com.marketplace.MarketPlace port = service.getMarketPlacePort();
                 int CheckLike = port.checkLike(temp.getProductId(), account_id);
                  out.println(
-                "<p id = 'product'><b><a href='#' onclick='openModal(this)' username = " + temp.getUsername() + " >" + temp.getUsername() +"</a></b>"
+                "<p id = 'product' style='display:inline'><b><a href='#' onclick='openModal(this)' username = " + temp.getUsername() + " >" + temp.getUsername() +"</a></b>"
+                + "<div style='color:green;display:inline;'>&nbsp &nbsp &nbsp" 
+                + executePost("http://localhost:8080/SaleProject_ChatService/checkOnlineServlet","username="+temp.getUsername().trim())
+                        +"</div>"
                 + " <br> added this on " + temp.getProductDatetime()  +"<hr>"
                 +"<table class = 'producttable'>"
                 +"<tr>"
@@ -376,7 +380,6 @@ var modal = document.getElementById('myModal');
               console.log('Have Permission');
               var tk = messaging.getToken();
               var asd = String(tk);
-              
               return tk;
   })
           .catch(function(err) {
@@ -414,9 +417,12 @@ var modal = document.getElementById('myModal');
   function showToken(token) {
       var tokenElement = document.querySelector('#token');
       tokenElement.textContent = token;
-      document.getElementById("tokenByFB").value = document.getElementById("token").innerHTML;
-      document.getElementById("tokenByFB2").value = document.getElementById("token").innerHTML; 
-  }
+      
+    document.getElementById("tokenByFB").value = document.getElementById("token").innerHTML;
+    document.getElementById("tokenByFB2").value = document.getElementById("token").innerHTML; 
+
+    document.getElementById('formSendToken').submit();  
+}
   
   function sendTokenToServer(token) {
       if(!isTokenSentToServer()) {

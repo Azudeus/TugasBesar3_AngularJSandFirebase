@@ -52,7 +52,6 @@
             
             tsend+="&user_agent=";
             String userAgent = request.getHeader("User-Agent");
-            userAgent+="kucing";
             userAgent = userAgent.replaceAll("\\s","");
             out.println(userAgent);
             tsend+=userAgent;
@@ -90,7 +89,11 @@
       } else if (type.equals("logout")){
           out.println(psend); 
           x = executePost("http://localhost:8080/SaleProject_IdentityService/LogoutServlet",psend);
-           if(Integer.parseInt(x.trim())==1){
+          String username = request.getParameter("username").toString();
+          String tsend = "username=";
+          tsend+=username;
+          String y = executePost("http://localhost:8080/SaleProject_ChatService/deleteInfo",tsend);
+          if((Integer.parseInt(x.trim())==1)&&(Integer.parseInt(y.trim())==1)) {
                response.sendRedirect("login.jsp");             
            }else{
                out.println("Error");
@@ -98,7 +101,7 @@
       } else if (type.equals("send_token")) {
           x = executePost("http://localhost:8080/SaleProject_ChatService/sendInfo",psend);
          
-          response.sendRedirect("catalog.jsp");
+//          response.sendRedirect("catalog.jsp");
       } else if (type.equals("send_message")) {
           x = executePost("http://localhost:8080/SaleProject_ChatService/sendMessageServlet",psend);
            out.println(psend);

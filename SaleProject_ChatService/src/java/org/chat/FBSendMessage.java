@@ -99,7 +99,7 @@ public class FBSendMessage {
             if (res.next()) {
                 ret = res.getString("fbtoken");
             }else {
-                System.out.println("Error");
+                ret = "Error";
             }
         } catch(ClassNotFoundException | SQLException ex) {
 
