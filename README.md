@@ -14,7 +14,7 @@ Diharapkan dengan tugas ini Anda dapat mengerti:
 
 ## Anggota Tim
 
-Setiap kelompok beranggotakan **3 - 4 orang**. Daftar anggota kelompok terdapat pada link berikut: https://drive.google.com/open?id=1wpzU2VHZXvSVNR6TS4sxILVvHimQYhxQhorMr1nSelw
+Davin Prasetya -- 13514003 Yeksadiningrat Al Valentino -- 13514055 Muhammad Reifiza -- 13514103
 
 ## Petunjuk Pengerjaan
 1. Buatlah organisasi pada gitlab dengan nama sesuai dengan nama tim yang anda daftarkan.
@@ -106,7 +106,7 @@ Token tidak perlu dienkripsi-dekripsi (for simplicity)
 ### Tampilan Program
 Halaman Catalog
 
-![](img/mockup01.png)
+![](img/contoh.JPEG)
 
 Chatting
 
@@ -136,17 +136,25 @@ Harap semua anggota kelompok mengerjakan baik implementasi Firebase sebagai *clo
 
 
 Chat app frontend :
-1. Fungsionalitas A : 135140XX  
-2. Fungsionalitas B : 135140XX  
-
+1. Show Chat : 13514055
+2. Online symbol : 13514003
+3. Save Message History : 13514055
+4. Clear Message History : 13514055
+5. Pop up windows : 13514055
 
 Chat app backend :  
-1. Fungsionalitas C : 135140XX  
-2. Fungsionalitas D : 135140XX  
-    
+1. Get Firebase Token : 13514003
+2. Register firebase token to Chat Service : 13514003
+3. Check Online : 13514003
+4. Send Message : 13514003 & 13514055
+5. Receive Message : 13514003 
+6. Delete registered token : 13514003
+7. Update Expiry Token from Chat : 13514055
+
 Fitur security (IP, User-agent) :
-1. Fungsionalitas E : 135140XX
-2. Fungsionalitas F : 135140XX
+1. Insert user agent : 13514003
+2. Insert IP Address : 13514003
+3. Request set status : 13514003
 
 
 ## About
