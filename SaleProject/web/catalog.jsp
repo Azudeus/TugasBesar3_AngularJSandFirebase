@@ -111,17 +111,15 @@ textarea:focus, input:focus{
         
         <h1>Testing here</h1>
         <div id="token_div">
-            token div
+           
         </div>
         <div id="permission_div">
-            permission div
+           
         </div>
         <p id="message">
-            message here
+       
         </p>
-        <p id="token">
-            
-        </p>
+ 
 <iframe width="0" height="0" border="0" name="dummyframe" id="dummyframe"></iframe>
 
     <form method="post" action="connector.jsp" id="formSendMessage" target = "dummyframe">
@@ -138,7 +136,12 @@ textarea:focus, input:focus{
     <input type="hidden" name="title" value="send_token">
     <input type="hidden" name="fbtoken" id = "tokenByFB2">
     <input type="hidden" name="username" value=<%=username%>>
-    </form>        
+    </form>           
+  
+    <form method="post" action="connector.jsp" id="formAuthToken">
+    <input type="hidden" name="title" value="auth_token">
+    <input type="hidden" name="access_token" value= "<%=token%>">
+    </form>           
   
     <!--<h2><a href="javascript:;" class = "redlink" onclick="document.getElementById('formSendToken').submit();">addChatToken</a></h2><br>-->  
         
@@ -293,6 +296,7 @@ app.controller("chat", ['$scope', function($scope) {
         $scope.textbox = '';
         document.getElementById("send_username").value = $scope.messageuser;
         document.getElementById("send_message").value = message;
+        document.getElementById('formAuthToken').submit();        
         document.getElementById('formSendMessage').submit();
         
     };
@@ -416,12 +420,8 @@ var modal = document.getElementById('myModal');
   });
   
   function showToken(token) {
-      var tokenElement = document.querySelector('#token');
-      tokenElement.textContent = token;
-      
-    document.getElementById("tokenByFB").value = document.getElementById("token").innerHTML;
-    document.getElementById("tokenByFB2").value = document.getElementById("token").innerHTML; 
-
+    document.getElementById("tokenByFB").value = token;
+    document.getElementById("tokenByFB2").value = token;
     document.getElementById('formSendToken').submit();  
 }
   

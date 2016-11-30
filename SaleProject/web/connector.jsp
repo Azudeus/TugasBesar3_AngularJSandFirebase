@@ -27,13 +27,15 @@
       Enumeration parameterList = request.getParameterNames();
       String psend = "";
       String type = request.getParameter(parameterList.nextElement().toString());
-      
+      String accesstoken = "";
       while( parameterList.hasMoreElements() )
       {
         String sName = parameterList.nextElement().toString();
         psend+=sName;
         psend+="=";
-        psend+= request.getParameter(sName);
+        psend+=request.getParameter(sName);
+        if(sName.equals("access_token"))
+            accesstoken = request.getParameter(sName);
         if(parameterList.hasMoreElements()){
             psend+="&";
         }
@@ -100,6 +102,7 @@
           String username = request.getParameter("username").toString();
           String tsend = "username=";
           tsend+=username;
+          out.println(x.trim());
           String y = executePost("http://localhost:8080/SaleProject_ChatService/deleteInfo",tsend);
           if((Integer.parseInt(x.trim())==1)&&(Integer.parseInt(y.trim())==1)) {
                response.sendRedirect("login.jsp");             
@@ -114,7 +117,22 @@
           x = executePost("http://localhost:8080/SaleProject_ChatService/sendMessageServlet",psend);
            out.println(psend);
           //response.sendRedirect("catalog.jsp");          
-      }else {
+      }else if(type.equals("auth_token")){
+          x = executePost("http://localhost:8080/SaleProject_IdentityService/authToken",psend);
+          out.println(psend);
+         // out.println(accesstoken);
+         // out.println(x);
+          if(x.trim().equals("False")){
+            out.println("<script>alert('token sudah kadaluarsa');</script> ");
+            out.println("<form method='post' action='connector.jsp' id='formLogout'>");
+                out.println("<input type='hidden' name='title' value='logout'>");
+                out.println("<input type='hidden' name='access_token' value="+ accesstoken +">");
+            out.println("</form>");
+            out.println("<script>document.forms['formLogout'].submit();</script>"); 
+        }
+      
+      }
+      else {
           out.println("notfound");
       }
               
