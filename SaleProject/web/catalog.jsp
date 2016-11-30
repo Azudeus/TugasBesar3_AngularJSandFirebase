@@ -297,9 +297,17 @@ var restToken = "<%=restToken%>";
 console.log(restToken);
     
 var app = angular.module("BasicChat", []);
-app.controller("chat", ['$scope','$http', function($scope) {
+app.controller("chat", ['$scope','$http', function($scope,$http) {
     $scope.asd = [];
-  
+    $scope.expire = 0;
+    $http.get('http://localhost:8080/SaleProject_IdentityService/authToken?' + restToken).
+        then(function(response) {
+            console.log(response.data);
+            if(response.data == 'True')
+                console.log("waw");
+        });    
+        
+
     
     $scope.send = function($http) {
         var messagetemp = {username : currentusername, message :this.textbox};
@@ -308,12 +316,7 @@ app.controller("chat", ['$scope','$http', function($scope) {
         $scope.textbox = '';
         document.getElementById("send_username").value = $scope.messageuser;
         document.getElementById("send_message").value = message;
-        $http.get('http://localhost:8080/SaleProject_IdentityService/authToken').
-        then(function(response) {
-           
-        });        
-        document.getElementById('formSendMessage').submit();
-        
+        document.getElementById('formSendMessage').submit();  
     };
     
     $scope.updateUsername = function(a){
