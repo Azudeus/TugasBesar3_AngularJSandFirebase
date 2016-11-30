@@ -86,15 +86,17 @@ public class RegisterServlet extends HttpServlet {
                     }
      
                 } else {
-                    out.println("Error Registration");
-                    RequestDispatcher rs = request.getRequestDispatcher("");
-                    rs.include(request,response);
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+//                    out.println("Error Registration");
+//                    RequestDispatcher rs = request.getRequestDispatcher("");
+//                    rs.include(request,response);
                 }
             }else {
-                out.println("There is another same account"
-                        + "");
-                RequestDispatcher rs = request.getRequestDispatcher("");
-                rs.include(request,response);
+                    response.setStatus(HttpServletResponse.SC_CONFLICT);
+//                out.println("There is another same account"
+//                        + "");
+//                RequestDispatcher rs = request.getRequestDispatcher("");
+//                rs.include(request,response);
             }
             
         } catch (ClassNotFoundException | SQLException ex) {

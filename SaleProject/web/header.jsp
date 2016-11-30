@@ -33,8 +33,8 @@
     
     <form method="post" action="connector.jsp" id="formLogout">
     <input type="hidden" name="title" value="logout">
-    <input type="hidden" name="access_token" value=<%=token%>>
     <input type="hidden" name="username" value=<%=username%>>
+    <input type="hidden" name="access_token" value=<%=token%>>
     <h2 id = "logout"><a href="javascript:;" class = "redlink" onclick="document.getElementById('formLogout').submit();">logout</a></h2><br>  
     </form>
     

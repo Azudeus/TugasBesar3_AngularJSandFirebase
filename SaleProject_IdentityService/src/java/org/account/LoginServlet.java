@@ -47,10 +47,7 @@ public class LoginServlet extends HttpServlet {
             out.write(jsonResponse.toString());
             out.flush();
         }else {
-            jsonResponse.put("id","Login failed");
-            jsonResponse.put("username","nil");
-            out.write(jsonResponse.toString());
-            out.flush();
+            response.setStatus(HttpServletResponse.SC_EXPECTATION_FAILED);
          }
     }
 

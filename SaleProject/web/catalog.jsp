@@ -291,7 +291,7 @@ app.controller("chat", ['$scope', function($scope) {
         var message = messagetemp.message;
         $scope.asd.push(messagetemp);
         $scope.textbox = '';
-        document.getElementById("send_username").value = currentusername;
+        document.getElementById("send_username").value = $scope.messageuser;
         document.getElementById("send_message").value = message;
         document.getElementById('formSendMessage').submit();
         
@@ -409,6 +409,7 @@ var modal = document.getElementById('myModal');
        openModal2(y);
        var scope = angular.element(document.getElementById('chatController')).scope();
         scope.$apply(function(){scope.addMessage(y,x);});
+        scope.$apply(function(){scope.updateUsername(y)});
         
         
       //appendMessage(payload);

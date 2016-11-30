@@ -48,7 +48,7 @@ public class LogoutServlet extends HttpServlet {
             if(i>0) {
                 out.print(1);
             }else{
-                out.print(0);
+                response.setStatus(HttpServletResponse.SC_EXPECTATION_FAILED);
             }
             
         } catch (ClassNotFoundException | SQLException ex) {

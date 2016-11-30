@@ -76,7 +76,7 @@ public class getToken extends HttpServlet {
             ps.setInt(3,account_id);
             int i =ps.executeUpdate();
             if(i>0){
-                out.print(access_token);                
+                out.print(salt);                
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(getToken.class.getName()).log(Level.SEVERE, null, ex);

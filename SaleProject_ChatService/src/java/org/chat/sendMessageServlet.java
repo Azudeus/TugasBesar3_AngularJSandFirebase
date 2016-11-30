@@ -42,7 +42,7 @@ public class sendMessageServlet extends HttpServlet {
         out.println("this is username " + username);
         String message = request.getParameter("message");
         out.println("this is the message " + message);
-        FBSendMessage.executePost(username, message);
+        FBSendMessage.executePost(username, message, fbtoken);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

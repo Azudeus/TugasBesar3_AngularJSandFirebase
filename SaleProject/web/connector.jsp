@@ -87,8 +87,16 @@
                 response.sendRedirect("catalog.jsp");
             }
       } else if (type.equals("logout")){
-          out.println(psend); 
-          x = executePost("http://localhost:8080/SaleProject_IdentityService/LogoutServlet",psend);
+            psend+=";";
+            String userAgent = request.getHeader("User-Agent");
+            userAgent = userAgent.replaceAll("\\s","");
+            psend+=userAgent;
+            psend+=";";
+            String ipAddress = request.getRemoteAddr();
+            psend+=ipAddress;
+            out.println(psend);
+
+            x = executePost("http://localhost:8080/SaleProject_IdentityService/LogoutServlet",psend);
           String username = request.getParameter("username").toString();
           String tsend = "username=";
           tsend+=username;

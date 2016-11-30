@@ -46,6 +46,8 @@ public class deleteInfo extends HttpServlet {
             int i = ps.executeUpdate();
             if (i>0) {
                 out.println(1);
+            }else{
+                response.setStatus(HttpServletResponse.SC_CONFLICT);
             }
         } catch(ClassNotFoundException | SQLException ex) {
 

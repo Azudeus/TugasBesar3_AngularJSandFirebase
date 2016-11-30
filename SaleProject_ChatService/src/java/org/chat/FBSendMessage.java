@@ -29,7 +29,7 @@ import java.util.Set;
  * @author Personal
  */
 public class FBSendMessage {
-    public static void executePost(String username,String text) {
+    public static void executePost(String username,String text, String fbtoken) {
   HttpURLConnection connection = null;
 
   try {
@@ -47,9 +47,9 @@ public class FBSendMessage {
     key_send=searchFBToken(username);
     message.put("to",key_send);
     //message.put("priority","high");
- 
+    String usersender = searchSenderName(fbtoken);
     JSONObject content = new JSONObject();
-    content.put("title", username);
+    content.put("title", usersender);
     content.put("text",text);
     message.put("notification",content);
     
@@ -107,5 +107,22 @@ public class FBSendMessage {
         return ret;
     }
     
-    
+    public static String searchSenderName(String fbtoken){
+        String ret = "";
+        try{
+            Connection con = DBChatConnect.connect();
+            PreparedStatement ps =con.prepareStatement
+                    ("SELECT * FROM registry WHERE fbtoken=?");
+            ps.setString(1,fbtoken);
+            ResultSet res = ps.executeQuery();
+            if (res.next()) {
+                ret = res.getString("username");
+            }else {
+                ret = "Error";
+            }
+        } catch(ClassNotFoundException | SQLException ex) {
+            
+        }
+        return ret;
+    }
 }

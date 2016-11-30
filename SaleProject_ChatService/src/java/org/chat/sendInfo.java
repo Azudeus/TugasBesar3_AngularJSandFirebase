@@ -58,10 +58,10 @@ public class sendInfo extends HttpServlet {
                 if (i>0) {
                     out.println("Success");
                 }else{
-                    out.println("Error Inputing token");
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                 }
             }else {
-                out.println("Theres duplicate token");
+                response.setStatus(HttpServletResponse.SC_CONFLICT);
             }
         } catch (ClassNotFoundException | SQLException ex) {
             PrintWriter out = response.getWriter();
