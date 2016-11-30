@@ -46,9 +46,7 @@ public class authToken extends HttpServlet {
         
         try {
             Connection con = DBConnect.connect();
-            String key = request.getParameter("access_token");
-            
-             
+            String key = request.getParameter("access_token");  
             PreparedStatement searchToken = con.prepareStatement
                    ("Select * from token where token_key = ?");
             searchToken.setString(1, key);

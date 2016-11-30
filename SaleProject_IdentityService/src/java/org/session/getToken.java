@@ -65,6 +65,7 @@ public class getToken extends HttpServlet {
         Date date = new Date();
         
         int account_id = Integer.parseInt(request.getParameter("account_id"));
+        System.out.println("asdasda");
         
         try {
             Connection con = DBConnect.connect();
