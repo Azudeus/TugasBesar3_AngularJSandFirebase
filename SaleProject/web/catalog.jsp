@@ -120,40 +120,43 @@ textarea:focus, input:focus{
        
         </p>
  
-<iframe width="0" height="0" border="0" name="dummyframe" id="dummyframe"></iframe>
+        <iframe width="0" height="0" border="0" name="dummyframe" id="dummyframe">
+            <h1>asd</h1>
+        </iframe>
 
     <form method="post" action="connector.jsp" id="formSendMessage" target = "dummyframe">
     <input type="hidden" name="title" value="send_message">
     <input type="hidden" name="fbtoken" id = "tokenByFB">
     <input type="hidden" name="username" id = "send_username" value=<%=username%> >
     <input type="hidden" name="message" value="asd" id = "send_message">               
-    <h2><a href="javascript:;" class = "redlink" onclick="document.getElementById('formSendMessage').submit();">sendMessage</a></h2><br>  
     </form>        
-
-    <iframe width="0" height="0" border="0" name="dummyframe" id="dummyframe"></iframe>
-        
     <form method="post" action="connector.jsp" id="formSendToken" target="dummyframe">
     <input type="hidden" name="title" value="send_token">
     <input type="hidden" name="fbtoken" id = "tokenByFB2">
     <input type="hidden" name="username" value=<%=username%>>
     </form>           
   
-    <form method="post" action="connector.jsp" id="formAuthToken">
+    <form method="post" action="connector.jsp" id="formAuthToken" target="dummyframe">
     <input type="hidden" name="title" value="auth_token">
     <input type="hidden" name="access_token" value= "<%=token%>">
     </form>           
+
   
     <!--<h2><a href="javascript:;" class = "redlink" onclick="document.getElementById('formSendToken').submit();">addChatToken</a></h2><br>-->  
         
-        
-        
+         
+
         <%-- start web service invocation --%>
          <%
              
         com.validator.Validator_Service service2 = new com.validator.Validator_Service();
 	com.validator.Validator port2 = service2.getValidatorPort();
-     
-        int result = port2.authToken(token);
+        
+        String userAgent = request.getHeader("User-Agent");
+        userAgent = userAgent.replaceAll("\\s","");
+        String ipAddress = request.getRemoteAddr();
+
+        int result = port2.authToken(token,userAgent,ipAddress);
 	if(result == 2 ){
             out.println("<script>alert('token sudah kadaluarsa');</script> ");
             out.println("<form method='post' action='connector.jsp' id='formLogout'>");
@@ -162,7 +165,7 @@ textarea:focus, input:focus{
             out.println("</form>");
             out.println("<script>document.forms['formLogout'].submit();</script>"); 
         }
-        
+  
          try {
              com.marketplace.MarketPlace_Service service = new com.marketplace.MarketPlace_Service();
              com.marketplace.MarketPlace port = service.getMarketPlacePort();
@@ -279,24 +282,36 @@ textarea:focus, input:focus{
     
         
     </body>
-</html>
+<% 
+    String restToken = "access_token=";
+    restToken+=token;
+    restToken+=";";   
+    restToken+=userAgent;
+    restToken+=";";
+    restToken+=ipAddress;
+%>
 <!-- Angular js -->
 <script>
 var currentusername = "<%=username%>";
+var restToken = "<%=restToken%>";
+console.log(restToken);
     
 var app = angular.module("BasicChat", []);
-app.controller("chat", ['$scope', function($scope) {
+app.controller("chat", ['$scope','$http', function($scope) {
     $scope.asd = [];
   
     
-    $scope.send = function() {
+    $scope.send = function($http) {
         var messagetemp = {username : currentusername, message :this.textbox};
         var message = messagetemp.message;
         $scope.asd.push(messagetemp);
         $scope.textbox = '';
         document.getElementById("send_username").value = $scope.messageuser;
         document.getElementById("send_message").value = message;
-        document.getElementById('formAuthToken').submit();        
+        $http.get('http://localhost:8080/SaleProject_IdentityService/authToken').
+        then(function(response) {
+           
+        });        
         document.getElementById('formSendMessage').submit();
         
     };
@@ -333,7 +348,7 @@ var modal = document.getElementById('myModal');
     function openModal2(uname){
          modal.style.display = "block";
          var scope = angular.element(document.getElementById('chatController')).scope();
-         scope.$apply(function(){scope.updateUsername(username);});    
+         scope.$apply(function(){scope.updateUsername(uname);});    
     }
     
 

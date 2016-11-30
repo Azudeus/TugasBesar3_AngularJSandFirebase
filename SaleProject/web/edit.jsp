@@ -23,7 +23,11 @@
            
         com.validator.Validator_Service service2 = new com.validator.Validator_Service();
 	com.validator.Validator port2 = service2.getValidatorPort();
-        int resulta = port2.authToken(token);
+        String userAgent = request.getHeader("User-Agent");
+        userAgent = userAgent.replaceAll("\\s","");
+        String ipAddress = request.getRemoteAddr();
+
+        int resulta = port2.authToken(token,userAgent,ipAddress);
 	if(resulta == 2 ){
             out.println("<script>alert('token sudah kadaluarsa');</script> ");
             out.println("<form method='post' action='connector.jsp' id='formLogout'>");

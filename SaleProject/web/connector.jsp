@@ -60,9 +60,10 @@
             tsend+="&ip_address=";
             String ipAddress = request.getRemoteAddr();
             tsend+=ipAddress;
-            
+            out.println(tsend);
             String token = executePost("http://localhost:8080/SaleProject_IdentityService/getToken",tsend);
             session.setAttribute("token",token.trim());
+                  out.println(token);
             response.sendRedirect("catalog.jsp");
         }
       } else if (type.equals("register")) {
@@ -118,6 +119,14 @@
            out.println(psend);
           //response.sendRedirect("catalog.jsp");          
       }else if(type.equals("auth_token")){
+          psend+=";";
+          String userAgent = request.getHeader("User-Agent");
+          userAgent = userAgent.replaceAll("\\s","");
+          psend+=userAgent;
+          psend+=";";
+          String ipAddress = request.getRemoteAddr();
+          psend+=ipAddress;
+          out.println(psend);
           x = executePost("http://localhost:8080/SaleProject_IdentityService/authToken",psend);
           out.println(psend);
          // out.println(accesstoken);
@@ -130,6 +139,7 @@
             out.println("</form>");
             out.println("<script>document.forms['formLogout'].submit();</script>"); 
         }
+          response.sendRedirect("catalog.jsp"); 
       
       }
       else {

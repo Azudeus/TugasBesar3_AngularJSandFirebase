@@ -27,10 +27,16 @@ public class validator {
     }
     
     
-    public int authToken (String token){
+    public int authToken (String token,String userAgent, String ipAddress){
         String auth;
         String asend = "access_token=";
         asend+=token;
+        userAgent = userAgent.replaceAll("\\s","");
+        asend+=";";
+        asend+=userAgent;
+        asend+=";";
+        asend+=ipAddress.trim();
+        System.out.println(asend);
         auth = executePost("http://localhost:8080/SaleProject_IdentityService/authToken",asend);
         if(auth.trim().equals("True"))
             return 1;
